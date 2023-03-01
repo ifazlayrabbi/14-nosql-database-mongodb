@@ -1,0 +1,25 @@
+database | collection = table | document = row = object
+-----------------------------------------------------
+show dbs		// see all the databases
+db			// current database
+use database1	// select a database
+
+// insert into one or multiple rows | documents
+-----------------------------------------------
+db.books.insertOne({key: "value", key: ["value1", "value2"], key: {}})
+db.books.insertMany([])
+
+show collections	   // see all the tables | collections
+
+db.books.find()      // see all the - rows | documents - in a table | collection
+db.authors.find({name: "Kabir Ali", age: 35})	// see a specific document
+db.books.find({author:'Terry Pratchett'}, {title: 1, author: 1})	// see only the columns who are set 1
+
+db.books.find({}, {title:1, pages:1})	// see only 'title' and 'pages' of all documents
+db.books.find().count()				// count the total documents
+db.books.find().limit(7)			// see only 7 documents
+db.books.find().sort({title: 1})		// asc
+db.books.find().sort({title: -1})		// dec
+
+db.books.insertOne({title:'The Play of Kasim', author: "Malika Aakdha", pages: 233, rating: 9, genres:['fantasy'], reviews: [{name: 'Komolata', body: 'Nice to read'}, {name: 'Arunita', body: 'Superb!'}]})
+
