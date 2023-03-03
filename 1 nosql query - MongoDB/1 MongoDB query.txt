@@ -23,3 +23,21 @@ db.books.find().sort({title: -1})		// dec
 
 db.books.insertOne({title:'The Play of Kasim', author: "Malika Aakdha", pages: 233, rating: 9, genres:['fantasy'], reviews: [{name: 'Komolata', body: 'Nice to read'}, {name: 'Arunita', body: 'Superb!'}]})
 
+db.books.find({rating: 7})
+db.books.find({rating: {$gt: 7}})
+db.books.find({rating: {$lt: 7}})
+db.books.find({rating: {$gte: 7}})
+db.books.find({rating: {$lte: 7}})
+db.books.find({rating: {$lte: 7}, author: 'Terry Pratchett'})
+db.books.find({rating: {$lte: 7}, author: 'Terry Pratchett'}, {title: 1, author: 1})
+
+db.books.find({$or:[{rating: 8}, {author: 'Terry Pratchett'}]})
+db.books.find({$and:[{rating: 8}, {author: 'Terry Pratchett'}]})
+db.books.find({$or: [{pages: {$lt: 300}},{pages: {$gt:500}}]})
+
+
+
+
+
+
+

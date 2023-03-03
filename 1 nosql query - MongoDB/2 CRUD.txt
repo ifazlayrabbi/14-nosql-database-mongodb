@@ -1,0 +1,40 @@
+database - table		- row
+database - collection 	- document
+
+show dbs
+db
+use Grocery_Store		// create database
+
+
+
+create			// create collection
+-------------------
+db.products.insertOne({_id: 1, name: 'Pen', price: 5})
+db.products.insertMany([{_id: 1, name: 'Pen', price: 5}, {_id: 2, name: 'Paper', price: 20}])
+
+
+
+read
+-------------------
+db.products.find()
+
+
+
+update
+-------------
+db.products.updateOne({_id: 1}, {$set: {stock: 20}})
+db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
+
+
+
+
+delete
+-------------
+db.products.deleteOne({name: 'pencil'})
+db.products.deleteMany({price: {$in: [30, 300]}})
+
+
+
+
+
+
