@@ -25,6 +25,29 @@ update
 db.products.updateOne({_id: 1}, {$set: {stock: 20}})
 db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
 
+db.products.update(
+  {_id: 1}, 
+  {$set: 
+    {reviews: 
+	[
+	  {
+		authorName: 'Sara', 
+		rating: 5, 
+		review: 'Nice pen, very smooth'
+	  }, 
+	  {
+		authorName: 'Karim', 
+		rating: 4, 
+		review: 'Good pen, easy to use'
+	  }
+	]
+    }
+  }
+)
+
+db.products.update({_id: 1}, {$unset: {demand:'good'}})
+
+
 
 
 
