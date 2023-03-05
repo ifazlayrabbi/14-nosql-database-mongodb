@@ -10,11 +10,27 @@ async function run() {
 
 
 
+
     const myDB = client.db("myDB");
     const myColl = myDB.collection("pizzaMenu");
-    const doc = { name: "Neapolitan pizza", shape: "round" };
-    const result = await myColl.insertOne(doc);
-    console.log(`A document was inserted with the _id: ${result.insertedId}`);
+    
+    const docs = [
+       { name: "Sicilian pizza", shape: "square" },
+       { name: "New York pizza", shape: "round" },
+       { name: "Grandma pizza", shape: "square" }
+    ];
+    
+    const insertManyresult = await myColl.insertMany(docs);
+    let ids = insertManyresult.insertedIds;
+    
+    console.log(`${insertManyresult.insertedCount} documents were inserted.`);
+    
+    for (let id of Object.values(ids)) {
+       console.log(`Inserted a document with id ${id}`);
+    }
+    
+
+
 
 
 

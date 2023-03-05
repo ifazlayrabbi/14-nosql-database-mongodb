@@ -56,6 +56,9 @@ delete
 db.products.deleteOne({name: 'pencil'})
 db.products.deleteMany({price: {$in: [30, 300]}})
 
+use mydb
+db.dropDatabase()
+
 
 
 
