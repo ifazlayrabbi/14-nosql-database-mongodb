@@ -94,10 +94,13 @@ db.products.find()
 
 update
 -------------
+db.products.update({_id: 1}, {$set: {stock: 20}})
 db.products.updateOne({_id: 1}, {$set: {stock: 20}})
 db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
 
+//delete a column of the row
 db.products.update({_id: 1}, {$unset: {demand:'good'}})
+
 
 db.products.update(
   {_id: 1}, 
@@ -124,6 +127,7 @@ db.products.update(
 
 delete
 -------------
+// delete full row | document
 db.products.deleteOne({name: 'pencil'})
 db.products.deleteMany({price: {$in: [30, 300]}})
 
@@ -131,6 +135,7 @@ use mydb
 db.dropDatabase()					// drop database
 db.books.drop()						// drop collection
 
+// delete a column of the row
 db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
 
