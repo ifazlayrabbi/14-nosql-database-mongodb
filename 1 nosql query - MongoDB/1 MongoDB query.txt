@@ -58,7 +58,6 @@ db.books.find({genres: {$all: ['romance', 'witchcraft']}})
 
 
 
-nested document query
----------------------
+// nested document query
 db.books.find({'reviews.name': 'Arunita'})
 

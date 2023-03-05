@@ -41,11 +41,7 @@ db.products.insertMany([{_id: 1, name: 'Pen', price: 5}, {_id: 2, name: 'Paper',
       { name: 'Komolata', body: 'Nice to read' },
       { name: 'Arunita', body: 'Superb!' }
     ]
-  }
-]
-
-
-[
+  },
   {
     _id: 4,
     title: 'The Color of Magic',
@@ -100,6 +96,16 @@ db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
 
 //delete a column of the row
 db.products.update({_id: 1}, {$unset: {demand:'good'}})
+
+db.books.update({_id: 6},{$inc: {pages: 2}})
+
+db.books.update({_id: 6},{$pull: {genres: 'sci-fi'}})
+db.books.update({_id: 6},{$push: {genres: 'sci-fi'}})		// push a single element
+db.books.update({_id: 6},{$push: {genres: {$each: ['romantic', 'horror']}}})    // push an array of elements
+
+
+
+
 
 
 db.products.update(
