@@ -13,6 +13,78 @@ db.products.insertOne({_id: 1, name: 'Pen', price: 5})
 db.products.insertMany([{_id: 1, name: 'Pen', price: 5}, {_id: 2, name: 'Paper', price: 20}])
 
 
+[
+  {
+    _id: 1,
+    title: 'The Color of Magic',
+    author: 'Terry Pratchett',
+    pages: 323,
+    rating: 7,
+    genres: [ 'fantasy', 'magic' ]
+  },
+  {
+    _id: 2,
+    title: 'The Color of Flower',
+    author: 'Terry Pratchett',
+    pages: 433,
+    rating: 7,
+    genres: [ 'romance', 'witchcraft' ]
+  },
+  {
+    _id: 3,
+    title: 'The Play of Kasim',
+    author: 'Malika Aakdha',
+    pages: 233,
+    rating: 9,
+    genres: [ 'fantasy' ],
+    reviews: [
+      { name: 'Komolata', body: 'Nice to read' },
+      { name: 'Arunita', body: 'Superb!' }
+    ]
+  }
+]
+
+
+[
+  {
+    _id: 4,
+    title: 'The Color of Magic',
+    author: 'Terry Pratchett',
+    pages: 455,
+    rating: 10,
+    genres: [ 'fantasy', 'sci-fi', 'magic' ]
+  },
+  {
+    _id: 5,
+    title: 'The Color of Flower',
+    author: 'Terry Pratchett',
+    pages: 466,
+    rating: 9,
+    genres: ['witchcraft' ]
+  },
+  {
+    _id: 6,
+    title: 'The Play of Kasim',
+    author: 'Malika Aakdha',
+    pages: 234,
+    rating: 10,
+    genres: [ 'fantasy', 'sci-fi'],
+    reviews: [
+      { name: 'Komolata', body: 'Nice to read' },
+      { name: 'Arunita', body: 'Superb!' }
+    ]
+  },
+	{
+    _id: 7,
+    title: 'The Color of Flower',
+    author: 'Terry Pratchett',
+    pages: 596,
+    rating: 6,
+    genres: ['romance' ]
+  }
+]
+
+
 
 read
 -------------------
@@ -25,10 +97,11 @@ update
 db.products.updateOne({_id: 1}, {$set: {stock: 20}})
 db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
 
+db.products.update({_id: 1}, {$unset: {demand:'good'}})
+
 db.products.update(
   {_id: 1}, 
-  {$set: 
-    {reviews: 
+  {$set: {reviews: 
 	[
 	  {
 		authorName: 'Sara', 
@@ -41,11 +114,9 @@ db.products.update(
 		review: 'Good pen, easy to use'
 	  }
 	]
-    }
-  }
+  }}
 )
 
-db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
 
 
@@ -57,9 +128,10 @@ db.products.deleteOne({name: 'pencil'})
 db.products.deleteMany({price: {$in: [30, 300]}})
 
 use mydb
-db.dropDatabase()
+db.dropDatabase()					// drop database
+db.books.drop()						// drop collection
 
-
+db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
 
 
