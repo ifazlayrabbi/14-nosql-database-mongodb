@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 // const {MongoClient} = require('mongodb')
 const {connectToDB, useDB} = require('./db')
+// const {ObjectId} = require('mongodb')
 
 
 
@@ -32,3 +33,12 @@ app.get('/', (req, res) => {
     .catch(() => res.json({error: 'Can\'t fetch data'}))
 })
 
+
+
+app.get('/books/:id', (req, res) => {
+  let book
+  db.collection('books')
+    .findOne({_id: parseInt(req.params.id)})
+    .then(doc => res.json(doc))
+    .catch(err => res.send(err))
+})
