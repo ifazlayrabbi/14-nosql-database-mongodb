@@ -1,52 +1,34 @@
-const { MongoClient } = require("mongodb");
-const uri = "mongodb://127.0.0.1:27017";
-const client = new MongoClient(uri);
-
-async function run() {
-  try {
-    await client.connect();
-    console.log("Connected successfully to server");
+'use strict'
+const express = require('express')
+const app = express()
+// const {MongoClient} = require('mongodb')
+const {connectToDB, useDB} = require('./db')
 
 
 
+// let db
+// async function connectToDB () {
+//   db = (await MongoClient.connect('mongodb://127.0.0.1:27017/book_store')).db()
+//   app.listen(3000, () => console.log('Server is running on port 3000'))
+// }
+// connectToDB()
 
 
-    const myDB = client.db("myDB");
-    const myColl = myDB.collection("pizzaMenu");
-    
-    const docs = [
-       { name: "Sicilian pizza", shape: "square" },
-       { name: "New York pizza", shape: "round" },
-       { name: "Grandma pizza", shape: "square" }
-    ];
-    
-    const insertManyresult = await myColl.insertMany(docs);
-    let ids = insertManyresult.insertedIds;
-    
-    console.log(`${insertManyresult.insertedCount} documents were inserted.`);
-    
-    for (let id of Object.values(ids)) {
-       console.log(`Inserted a document with id ${id}`);
-    }
-    
+let db
+connectToDB( () => {
+  app.listen(3000, () => console.log('Server is running on port 3000'))
+  db = useDB()
+})
 
 
 
+app.get('/', (req, res) => {
+  let books = []
 
-
-  } finally {
-    await client.close();
-  }
-}
-run().catch(console.dir);
-
-
-
-
-
-
-
-
-
-
+  db.collection('books')
+    .find()
+    .forEach(book => books.push(book))
+    .then(() => res.json(books))
+    .catch(() => res.json({error: 'Can\'t fetch data'}))
+})
 
