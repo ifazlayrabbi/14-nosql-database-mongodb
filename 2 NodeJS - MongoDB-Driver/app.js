@@ -116,3 +116,19 @@ app.patch('/books/:id', (req, res) => {
 
 
 
+app.get('/pages', (req, res) => {
+  let pageNumber = req.query.p || 0
+  let booksPerPage = 3
+  let books = []
+
+  db.collection('books')
+    .find()
+    .skip(pageNumber * booksPerPage)
+    .limit(booksPerPage)
+    .forEach(book => books.push(book))
+    .then(() => res.json(books))
+    .catch(() => res.json({Error: 'Couldn\'t fetch the books.'}))
+
+})
+
+
