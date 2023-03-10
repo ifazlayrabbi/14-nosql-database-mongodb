@@ -105,7 +105,7 @@ app.delete('/books/:id', (req, res) => {
 //   "genres": ["scary"]
 // }
 
-// update a document
+// update a book
 app.patch('/books/:id', (req, res) => {
   const updates= req.body
   db.collection('books')
@@ -116,6 +116,7 @@ app.patch('/books/:id', (req, res) => {
 
 
 
+// ------ read a limited no. of books in different pages -------
 app.get('/pages', (req, res) => {
   let pageNumber = req.query.p || 0
   let booksPerPage = 3
@@ -128,7 +129,6 @@ app.get('/pages', (req, res) => {
     .forEach(book => books.push(book))
     .then(() => res.json(books))
     .catch(() => res.json({Error: 'Couldn\'t fetch the books.'}))
-
 })
 
 
