@@ -61,3 +61,13 @@ db.books.find({genres: {$all: ['romance', 'witchcraft']}})
 // nested document query
 db.books.find({'reviews.name': 'Arunita'})
 
+
+
+// multiple page query & fixed number of documents in a page
+db.books
+  .find()
+  .skip(5)
+  .limit(3)
+
+
+
