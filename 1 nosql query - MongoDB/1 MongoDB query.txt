@@ -71,3 +71,13 @@ db.books
 
 
 
+
+
+// index
+db.books.find({rating:7}).explain('executionStats')   // query summary
+db.books.getIndexes()
+
+db.books.createIndex({rating: 7})
+db.books.dropIndex({rating: 7})
+
+
