@@ -82,6 +82,25 @@ db.products.insertMany([{_id: 1, name: 'Pen', price: 5}, {_id: 2, name: 'Paper',
 
 
 
+json format
+----------------------
+	{
+    "_id": 7,
+    "title": "The Color of Flower",
+    "author": "Terry Pratchett",
+    "pages": 596,
+    "rating": 6,
+    "genres": ["romance"]
+  }
+
+
+
+
+
+
+
+
+
 read
 -------------------
 db.products.find()

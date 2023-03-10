@@ -1,9 +1,14 @@
 'use strict'
+const { urlencoded } = require('express')
 const express = require('express')
 const app = express()
 // const {MongoClient} = require('mongodb')
 const {connectToDB, useDB} = require('./db')
-// const {ObjectId} = require('mongodb')
+const {ObjectId} = require('mongodb')
+app.use(express.json())
+// const bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.json())
 
 
 
@@ -23,9 +28,9 @@ connectToDB( () => {
 
 
 
+// find all the books
 app.get('/', (req, res) => {
   let books = []
-
   db.collection('books')
     .find()
     .forEach(book => books.push(book))
@@ -35,10 +40,78 @@ app.get('/', (req, res) => {
 
 
 
+// find a single book
 app.get('/books/:id', (req, res) => {
-  let book
   db.collection('books')
     .findOne({_id: parseInt(req.params.id)})
     .then(doc => res.json(doc))
     .catch(err => res.send(err))
 })
+
+
+
+
+
+//  -----inserted values----
+// {
+//   "_id": 7,
+//   "title": "The Color of Flower",
+//   "author": "Terry Pratchett",
+//   "pages": 596,
+//   "rating": 6,
+//   "genres": ["romance"]
+// }
+
+// insert a book
+app.post('/books', (req, res) => {
+  const book = req.body
+  db.collection('books')
+    .insertOne(book)
+    .then(result => res.json(result))
+    .catch(err => res.json({err: 'Couldn\'t create a new document.'}))
+})
+
+
+
+// delete a book
+app.delete('/books/:id', (req, res) => {
+    db.collection('books')
+    .deleteOne({_id: parseInt(req.params.id)})
+    .then(result => res.json(result))
+    .catch(err => res.json({err: 'Couldn\'t delete the document.'}))
+})
+
+// delete a book
+// app.delete('/books/:id', (req, res) => {
+//   if(ObjectId.isValid(req.params.id)){
+//     db.collection('books')
+//     .deleteOne({_id: ObjectId(req.params.id)})
+//     .then(result => res.json(result))
+//     .catch(err => res.json({err: 'Couldn\'t delete the document.'}))
+//   }
+//   else{
+//     res.json({Error: 'Not a valid id'})
+//   }
+// })
+
+
+
+
+
+//   ----updated values----
+// {
+//   "pages": 501,
+//   "rating": 7,
+//   "genres": ["scary"]
+// }
+
+// update a document
+app.patch('/books/:id', (req, res) => {
+  const updates= req.body
+  db.collection('books')
+    .updateOne({_id: parseInt(req.params.id)}, {$set: updates})
+    .then(result => res.json(result))
+    .catch(err => res.json({"Error": "Couldn\'t update the document"}))
+})
+
+
