@@ -1,14 +1,13 @@
+
 'use strict'
-const { urlencoded } = require('express')
 const express = require('express')
 const app = express()
 // const {MongoClient} = require('mongodb')
 const {connectToDB, useDB} = require('./db')
 const {ObjectId} = require('mongodb')
 app.use(express.json())
-// const bodyParser = require('body-parser')
-// app.use(bodyParser.urlencoded({extended: true}))
-// app.use(bodyParser.json())
+
+
 
 
 
@@ -28,7 +27,7 @@ connectToDB( () => {
 
 
 
-// find all the books
+// find all the books | Read All
 app.get('/', (req, res) => {
   let books = []
   db.collection('books')
@@ -40,7 +39,7 @@ app.get('/', (req, res) => {
 
 
 
-// find a single book
+// find a single book | Read One
 app.get('/books/:id', (req, res) => {
   db.collection('books')
     .findOne({_id: parseInt(req.params.id)})
@@ -63,7 +62,7 @@ app.get('/books/:id', (req, res) => {
 // }
 
 // insert a book
-app.post('/books', (req, res) => {
+app.post('/insert-one', (req, res) => {
   const book = req.body
   db.collection('books')
     .insertOne(book)
@@ -71,10 +70,21 @@ app.post('/books', (req, res) => {
     .catch(err => res.json({err: 'Couldn\'t create a new document.'}))
 })
 
+// insert many books
+app.post('/insert-many', (req, res) => {
+  const book = req.body
+  db.collection('books')
+    .insertMany(book)
+    .then(result => res.json(result))
+    .catch(err => res.json({err: 'Couldn\'t create a new document.'}))
+})
+
+
+
 
 
 // delete a book
-app.delete('/books/:id', (req, res) => {
+app.delete('/delete/:id', (req, res) => {
     db.collection('books')
     .deleteOne({_id: parseInt(req.params.id)})
     .then(result => res.json(result))
@@ -82,7 +92,7 @@ app.delete('/books/:id', (req, res) => {
 })
 
 // delete a book
-// app.delete('/books/:id', (req, res) => {
+// app.delete('/delete/:id', (req, res) => {
 //   if(ObjectId.isValid(req.params.id)){
 //     db.collection('books')
 //     .deleteOne({_id: ObjectId(req.params.id)})
@@ -106,7 +116,7 @@ app.delete('/books/:id', (req, res) => {
 // }
 
 // update a book
-app.patch('/books/:id', (req, res) => {
+app.patch('/update/:id', (req, res) => {
   const updates= req.body
   db.collection('books')
     .updateOne({_id: parseInt(req.params.id)}, {$set: updates})
@@ -116,7 +126,7 @@ app.patch('/books/:id', (req, res) => {
 
 
 
-// ------ read a limited no. of books in different pages -------
+// ------ read pages: 1, 2, 3 ... -------
 app.get('/pages', (req, res) => {
   let pageNumber = req.query.p || 0
   let booksPerPage = 3
