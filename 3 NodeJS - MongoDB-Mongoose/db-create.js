@@ -83,6 +83,21 @@ const customerSchema = mongoose.Schema({
     city: String
   }
 })
+
+
+
+// mongodb middleware - save, validate, remove, updateOne
+
+customerSchema.pre('save', function(next) {
+  this.updated = Date.now()
+  next()
+})
+
+
+
+
+
+
 const Customer = mongoose.model('Customer', customerSchema)
 exports.Customer = Customer
 
@@ -181,4 +196,4 @@ async function func3(){
     console.log('Customer is added.')
   } catch(err){console.log(err.message)}
 }
-func3()
+// func3()

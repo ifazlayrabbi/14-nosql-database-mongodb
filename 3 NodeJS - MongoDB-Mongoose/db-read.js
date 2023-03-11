@@ -24,7 +24,7 @@ async function func1(){
 
 async function func2(){
   try{
-    const result = await Customer.find({_id: '640bfca2d4495124f33eb2fb'})
+    const result = await Customer.find({_id: '640c1aad69374c5868e371a9'})
     console.log(result)
   } catch(err){
     console.log(err.message)
