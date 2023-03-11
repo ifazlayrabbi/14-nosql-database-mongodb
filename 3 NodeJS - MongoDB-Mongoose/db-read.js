@@ -30,8 +30,7 @@ async function func2(){
     console.log(err.message)
   }
 } 
-func2()
-
+// func2()
 
 async function func3(){
   try{
@@ -42,3 +41,14 @@ async function func3(){
   }
 } 
 // func3()
+
+async function func4(){
+  try{
+    const result = await Customer.find()
+    console.log(result)
+  } catch(err){
+    console.log(err.message)
+  }
+} 
+func4()
+
