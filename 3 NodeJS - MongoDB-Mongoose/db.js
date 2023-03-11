@@ -11,6 +11,8 @@ mongoose.connect(uri)
 
 
 
+// ----  CREATE  ----
+
 const userSchema = new mongoose.Schema({
   name: String,
   age: Number
@@ -47,14 +49,33 @@ new User({
 
 const customerSchema = mongoose.Schema({
   name: String,
-  age: Number,
+  age: {
+    type: Number,
+    min: 1,
+    max: 100
+  },
+  evenNum: {
+    type: Number,
+    validate: {
+      validator: val => val % 2 === 0,
+      message: msg => msg.value + ' is not an even number.'
+    }
+  },
   email: {
     type: String,
     required: true,
-    lowercase: true
+    lowercase: true,
+    minLength: 12
   },
-  created: Date,
-  updated: Date,
+  created: {
+    type: Date,
+    immutable: true,
+    default: () => Date.now()
+  },
+  updated: {
+    type: Date,
+    default: () => Date.now()
+  },
   bestFriend: mongoose.SchemaTypes.ObjectId,
   hobbies: [String],
   address: {
@@ -80,16 +101,27 @@ const customer1 = new Customer({
 
 const customer2 = new Customer({
   name: 'Zulekha',
-  age: 23,
-  email: 'Zulekha23@gmail.com',
+  age: 'a',
+  evenNum: 28,
+  email: 'Zulekha16@gmail.com',
   hobbies: ['Reading', 'Praying', 'Caring'],
   address: {
     street: '14B, Road No: 7',
     city: 'Rajshahi'
   },
-  bestFriend: '640bbee780f72cc906c862bc'
+  bestFriend: '640bf0f6c0ecffabf71138f6'
 })
 
-customer2.save()
-.then(() => console.log('Customer is added.'))
-.catch(err => console.log(err.message))
+// customer2.save()
+// .then(() => console.log('Customer is added.'))
+// .catch(err => console.log(err.message))
+
+async function func1(){
+  try{
+    await customer2.save()
+    console.log('Customer added.')
+  } catch(err){
+    console.log(err.message)
+  }
+}
+// func1()
