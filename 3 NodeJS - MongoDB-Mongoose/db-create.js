@@ -102,7 +102,7 @@ const customer1 = new Customer({
 
 const customer2 = new Customer({
   name: 'Zulekha',
-  age: 'a',
+  age: 16,
   evenNum: 28,
   email: 'Zulekha16@gmail.com',
   hobbies: ['Reading', 'Praying', 'Caring'],
@@ -126,3 +126,59 @@ async function func1(){
   }
 }
 // func1()
+
+
+async function func2(){
+  try{
+    await Customer.create({
+      name: 'Zulekha',
+      age: 18,
+      evenNum: 30,
+      email: 'Zulekha16@gmail.com',
+      hobbies: ['Reading', 'Praying', 'Caring'],
+      address: {
+        street: '14B, Road No: 7',
+        city: 'Rajshahi'
+      },
+      bestFriend: '640bf0f6c0ecffabf71138f6'
+    })
+    console.log('Customer is added.')
+  } catch(err){console.log(err.message)}
+}
+// func2()
+
+
+async function func3(){
+  try{
+    await Customer.insertMany(
+      [
+        {
+          name: 'Zulekha',
+          age: 29,
+          evenNum: 32,
+          email: 'Zulekha16@gmail.com',
+          hobbies: ['Reading', 'Praying', 'Caring'],
+          address: {
+            street: '14B, Road No: 7',
+            city: 'Rajshahi'
+          },
+          bestFriend: '640bf0f6c0ecffabf71138f6'
+        },
+        {
+          name: 'Zulekha2',
+          age: 30,
+          evenNum: 34,
+          email: 'Zulekha16@gmail.com',
+          hobbies: ['Reading', 'Praying', 'Caring'],
+          address: {
+            street: '14B, Road No: 7',
+            city: 'Rajshahi'
+          },
+          bestFriend: '640bf0f6c0ecffabf71138f6'
+        }
+      ]
+    )
+    console.log('Customer is added.')
+  } catch(err){console.log(err.message)}
+}
+func3()
