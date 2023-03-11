@@ -84,6 +84,7 @@ const customerSchema = mongoose.Schema({
   }
 })
 const Customer = mongoose.model('Customer', customerSchema)
+exports.Customer = Customer
 
 
 
