@@ -1,5 +1,7 @@
 
 const {Customer} = require('./db-create')
+const mongoose = require('mongoose')
+const {Color, Friend} = require('./db-create2')
 
 
 
@@ -44,11 +46,24 @@ async function func3(){
 
 async function func4(){
   try{
-    const result = await Customer.find()
+    const result = await Friend.find()
     console.log(result)
   } catch(err){
     console.log(err.message)
   }
 } 
 func4()
+
+async function func5(){
+  try{
+    const cust = await Customer.find()
+    cust.forEach(customer => {
+      console.log(customer.name)
+    })
+    mongoose.connection.close()
+  } catch(err){
+    console.log(err.message)
+  }
+} 
+// func5()
 

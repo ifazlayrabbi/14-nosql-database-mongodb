@@ -26,4 +26,4 @@ async function func1(){
     console.log(err.message)
   }
 } 
-func1()
+// func1()

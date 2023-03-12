@@ -1,8 +1,7 @@
 
 require('dotenv').config()
 const mongoose = require('mongoose')
-const uri = 'mongodb+srv://'+process.env.user+':'+process.env.pass+'@cluster0.pbwxcxc.mongodb.net/?retryWrites=true&w=majority'
-mongoose.connect(uri)
+mongoose.connect('mongodb+srv://'+process.env.user+':'+process.env.pass+'@cluster0.pbwxcxc.mongodb.net/?retryWrites=true&w=majority')
 
 
 
@@ -48,7 +47,10 @@ new User({
 
 
 const customerSchema = mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: [true, 'Name is missing!']
+  },
   age: {
     type: Number,
     min: 1,
@@ -85,7 +87,6 @@ const customerSchema = mongoose.Schema({
 })
 
 
-
 // mongodb middleware - save, validate, remove, updateOne
 
 customerSchema.pre('save', function(next) {
@@ -94,13 +95,8 @@ customerSchema.pre('save', function(next) {
 })
 
 
-
-
-
-
 const Customer = mongoose.model('Customer', customerSchema)
 exports.Customer = Customer
-
 
 
 const customer1 = new Customer({
@@ -116,7 +112,7 @@ const customer1 = new Customer({
 // customer1.save().then(() => console.log('Customer is added.'))
 
 const customer2 = new Customer({
-  name: 'Zulekha',
+  name: 'Sumi',
   age: 16,
   evenNum: 28,
   email: 'Zulekha16@gmail.com',
