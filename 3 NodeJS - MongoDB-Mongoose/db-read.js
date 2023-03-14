@@ -56,8 +56,8 @@ func4()
 
 async function func5(){
   try{
-    const cust = await Customer.find()
-    cust.forEach(customer => {
+    await Customer.find()
+    .forEach(customer => {
       console.log(customer.name)
     })
     mongoose.connection.close()
