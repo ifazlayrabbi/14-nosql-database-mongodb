@@ -13,6 +13,41 @@ db.products.insertOne({_id: 1, name: 'Pen', price: 5})
 db.products.insertMany([{_id: 1, name: 'Pen', price: 5}, {_id: 2, name: 'Paper', price: 20}])
 
 
+object for Page
+{
+	name: 'Class10'
+	students: [
+		{
+			studentName: 'Kulsoom',
+			subjects: [
+				{
+					subjectName: 'English',
+					marks: 90
+				},
+				{
+					subjectName: 'Maths',
+					marks: 100
+				}
+			]
+		},
+		{
+			studentName: 'Fatema',
+			subjects: [
+				{
+					subjectName: 'English',
+					marks: 70
+				},
+				{
+					subjectName: 'Maths',
+					marks: 80
+				}
+			]
+		}
+	]
+}
+
+
+
 [
   {
     _id: 1,
@@ -105,6 +140,12 @@ read
 -------------------
 db.products.find()
 
+let find1 = await Page.findOne(
+  {'data._id': '6412b33eec028cfd488495fc'},
+  {data: 1, _id: 0}
+)
+
+
 
 
 update
@@ -116,15 +157,51 @@ db.products.updateMany({_id: 1},{$set: {stock: 28, demand: 'good'}})
 //delete a column of the row
 db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
-db.books.update({_id: 6},{$inc: {pages: 2}})
-
-db.books.update({_id: 6},{$pull: {genres: 'sci-fi'}})
-db.books.update({_id: 6},{$push: {genres: 'sci-fi'}})		// push a single element
-db.books.update({_id: 6},{$push: {genres: {$each: ['romantic', 'horror']}}})    // push an array of elements
+db.books.update({_id: 6}, {$inc: {pages: 2}})
 
 
+await Page.updateOne(
+  {name: 'Zainab'},
+  {$pull: {data: {_id: '6412bf6cfff27e142b429b39'}}}
+)
+
+db.books.update({_id: 6}, {$pull: {genres: 'sci-fi'}})
+db.books.update({_id: 6}, {$push: {genres: 'sci-fi'}})		// push a single element
+db.books.update({_id: 6}, {$push: {genres: {$each: ['romantic', 'horror']}}})    // push an array of elements
 
 
+db.books.update(
+  {_id: 6},
+  {$push: {$[var1].reviews: {}}})
+
+db.classes.updateOne(
+  {class: '10 B'}, 
+  {pull: {'students.$[var1].subjects': {subjectName: 'Maths'}}},
+  {arrayFilters: [{'var1.studentName': 'Zainab'}]}
+)
+
+
+
+
+await Page.updateOne(
+  {name: 'Zainab'}, 
+  {$push: {data: {name: 'Hello, how are you?'}}}
+)
+
+await Page.updateOne(
+  {name: 'Zainab'},
+  {$pull: {data: {_id: '6412bf6cfff27e142b429b39'}}}
+)
+
+await Page.updateOne(
+  {name: 'Zainab'},
+  {$pull: {data: {name: 'She recites Quran beautifully', _id: '64149675734c0d9715712b1b'}}}
+)
+
+
+
+
+db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
 
 db.products.update(

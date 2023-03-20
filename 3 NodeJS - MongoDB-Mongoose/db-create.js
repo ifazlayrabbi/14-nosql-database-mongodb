@@ -32,7 +32,14 @@ new User({
 })
 // .save().then(() => console.log('User saved'))
 
+
 // User.create({
+//   name: 'Kasem',
+//   age: 22
+// })
+// .then(() => console.log('New User Saved.'))
+
+// User.insertMany({
 //   name: 'Kasem',
 //   age: 22
 // })
