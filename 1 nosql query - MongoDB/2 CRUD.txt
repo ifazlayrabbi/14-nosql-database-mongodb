@@ -148,6 +148,8 @@ let find1 = await Page.findOne(
 
 
 
+
+
 update
 -------------
 db.products.update({_id: 1}, {$set: {stock: 20}})
@@ -201,6 +203,24 @@ await Page.updateOne(
 
 
 
+
+Article.updateOne(
+  {title: 'title2'},
+  {$set: {body: {title1: 'title2 bb', content1: 'content2 bb'}}}
+)
+Article.updateOne(
+  {title: 'title2'},
+  {$push: {body: {title1: 'title4 dd', content1: 'content4 dd'}}}
+)
+Article.updateOne(
+  {title: 'title2'},
+  {$pull: {body: {title1: 'title4 dd'}}}
+)
+
+
+
+
+
 db.products.update({_id: 1}, {$unset: {demand:'good'}})
 
 
@@ -232,6 +252,8 @@ delete
 // delete full row | document
 db.products.deleteOne({name: 'pencil'})
 db.products.deleteMany({price: {$in: [30, 300]}})
+db.articles.deleteMany({title: {$in: ["title1", "title2", "title3", "title4"]}})
+
 
 use mydb
 db.dropDatabase()					// drop database
